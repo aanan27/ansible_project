@@ -1,0 +1,9 @@
+[webservers] 
+
+slavenode  ansible_host=192.168.126.129 ansible_user=root ansible_ssh_private_key_file=/root/.ssh/id_rsa
+
+[webservers:vars]
+http_port=80/tcp
+html_page_src=/root/apache-project/index.html
+html_page_dest=/var/www/html/index.html
+

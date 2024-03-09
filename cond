@@ -1,0 +1,14 @@
+---
+- name: Shutdown CentOS Stream 9 Hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check if CentOS Stream 9
+      command: "cat /etc/centos-release"
+      register: centos_stream_release
+      changed_when: false
+
+    - name: Shutdown CentOS Stream 9 Hosts
+      command: "shutdown now"
+      when: "'CentOS' in centos_stream_release.stdout"
+

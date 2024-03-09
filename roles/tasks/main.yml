@@ -1,0 +1,25 @@
+---
+- name: Install HTTPD
+  yum:
+    name: httpd
+    state: installed
+
+- name: Start and Enable HTTPD
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Permit Traffic in Default Zone for HTTPS Service
+  firewalld:
+    port: "{{ http_port }}"
+    permanent: yes
+    state: enabled
+  notify:
+    - reload service firewalld
+
+- name: Copy index.html file to the managed host
+  copy:
+    src: "{{ html_page_src }}"
+    dest: "{{ html_page_dest }}"
+
